@@ -22,41 +22,6 @@ h4 {
   background-color: var(--buttons-warm-amber);
   box-shadow: var(--golden-shadow);
 }
-/* .login-dropdown {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-  position: absolute;
-  top: 105%;
-  right: 0;
-  width: max-content;
-  padding: 12px 24px;
-  background-color: var(--surface-dark-charcoal);
-  border: 1px solid var(--lighter-surface-dark-charcoal);
-  border-radius: 8px;
-  box-shadow: var(--box-shadow);
-  text-align: left;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transform: translateY(-10px);
-  transition:
-    opacity 0.2s ease,
-    transform 0.2s ease,
-    visibility 0.2s ease;
-}
-
-.login-dropdown.active {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transform: translateY(0);
-} */
-
-/* ==========================================
-   3. Ticket Component Cards
-   ========================================== */
 .ticket-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -127,9 +92,6 @@ h4 {
   background-color: rgba(255, 74, 74, 0.05);
 }
 
-/* ==========================================
-   4. About Us Page Structure
-   ========================================== */
 .about-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -168,8 +130,7 @@ h4 {
     var(--primary-gold) 0%,
     var(--buttons-warm-amber) 100%
   );
-  /* -webkit-background-clip: text; */
-  /* -webkit-text-fill-color: transparent; */
+
   margin-bottom: 24px;
   line-height: 1.1;
 }

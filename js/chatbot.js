@@ -37,20 +37,12 @@ async function loadProducts() {
     // Assign mapped state data properties directly from returned entities
     products = appData.products;
     discounts = appData.discounts;
-    // theatres = appData.theatres;
-    // schedule = appData.schedule;
 
     console.log("Loaded fully deciphered products:", products);
     checkReady();
   } catch (e) {
-    console.error(
-      "Không thể tải dữ liệu sản phẩm. Kích hoạt chế độ dự phòng.",
-      e,
-    );
     products = [];
     discounts = [];
-    theatres = [];
-    schedule = [];
     checkReady();
   }
 }
@@ -73,11 +65,8 @@ function buildPrompt(userMessage) {
         `- Thể loại: ${p.genre} | Định dạng: ${p.style} | Giới hạn: ${p.rated}\n` +
         `- Đánh giá: ${p.audiencerating}\n` +
         `- Thời lượng: ${p.duration} phút\n` +
-        // `- Lịch chiếu các rạp: ${p.prebuiltScheduleString}\n` +
         `- Tóm tắt: ${p.desc}\n` +
         `- Giá vé cơ bản: ${p.base_ticket || "N/A"}\n`
-        // `- Giá vé VIP: ${p.premium_ticket || "N/A"}\n` +
-        // `- Giá vé sofa: ${p.sofa_ticket || "N/A"}\n`
       );
     })
     .join("\n\n");
@@ -93,15 +82,6 @@ function buildPrompt(userMessage) {
       .join("\n\n");
     discountSection = `\n\nDanh sách ưu đãi:\n${discountText}`;
   }
-
-  // 3. Theatres formatting
-  let theatreSection = "";
-  // if (theatres && theatres.length > 0) {
-  //   let theatreText = theatres
-  //     .map((t) => `Rạp: ${t.theatre}\n- Thành phố: ${t.city}\n`)
-  //     .join("\n\n");
-  //   theatreSection = `\n\nDanh sách rạp:\n${theatreText}`;
-  // }
 
   const systemCtx = `Bạn là trợ lý tư vấn bán vé xem phim thân thiện. Danh sách phim và vé:\n${productText}\n; cùng với danh sách ưu đãi: \n${discountSection}\n. Mỗi phần tử của danh sách là một phim hoặc vé xem phim với đầy đủ thông tin bạn cần. Trả lời bằng tiếng Việt, ngắn gọn, hiển thị giá bằng USD.`;
 
@@ -144,9 +124,18 @@ async function sendToGemini(userMessage) {
   }
 
   const data = await res.json();
-  return (
-    data.candidates?.[0]?.content?.parts?.[0]?.text || "Không có phản hồi."
-  );
+  if (
+    data.candidates &&
+    data.candidates[0] &&
+    data.candidates[0].content &&
+    data.candidates[0].content.parts &&
+    data.candidates[0].content.parts[0] &&
+    data.candidates[0].content.parts[0].text
+  ) {
+    return data.candidates[0].content.parts[0].text;
+  } else {
+    return "Không có phản hồi.";
+  }
 }
 
 // ── Chat logic ──

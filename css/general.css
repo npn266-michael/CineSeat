@@ -146,8 +146,7 @@ input {
 
 .mobile-menu {
   position: sticky;
-  top: 86px; /* adjust if navbar height changes */
-
+  top: 66px; /* adjust if navbar height changes */
   width: 100%;
   background-color: var(--surface-dark-charcoal);
 
