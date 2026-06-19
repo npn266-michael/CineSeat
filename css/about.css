@@ -22,7 +22,7 @@ h4 {
   background-color: var(--buttons-warm-amber);
   box-shadow: var(--golden-shadow);
 }
-.login-dropdown {
+/* .login-dropdown {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -52,7 +52,7 @@ h4 {
   visibility: visible;
   pointer-events: auto;
   transform: translateY(0);
-}
+} */
 
 /* ==========================================
    3. Ticket Component Cards
