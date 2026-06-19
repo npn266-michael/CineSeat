@@ -1,11 +1,12 @@
 // ── Imports ──
 import { fetchData } from "./config.js";
-let geminiKey = "AIzaSyAIwVavHGRKvrm9FjBrgohQPvZzsX34EpQ";
 const GEMINI_MODEL = "gemini-2.5-flash-lite";
+
+// BƯỚC KHẮC PHỤC 1: Khai báo lại từ khóa để GitHub Actions có thể tìm thấy và tiêm Key thật vào khi deploy
+let geminiKey = "__GEMINI_API_KEY__";
+
 let products = [];
 let discounts = [];
-let theatres = [];
-let schedule = [];
 let chatHistory = [];
 let isReady = false;
 
@@ -34,13 +35,13 @@ async function loadProducts() {
   try {
     const appData = await fetchData();
 
-    // Assign mapped state data properties directly from returned entities
-    products = appData.products;
-    discounts = appData.discounts;
+    products = appData.products || [];
+    discounts = appData.discounts || [];
 
     console.log("Loaded fully deciphered products:", products);
     checkReady();
   } catch (e) {
+    console.error("Lỗi nạp dữ liệu rạp phim:", e);
     products = [];
     discounts = [];
     checkReady();
@@ -48,16 +49,26 @@ async function loadProducts() {
 }
 
 function checkReady() {
-  if (geminiKey) {
+  // SỬA LỖI 1: Đảm bảo điều kiện kiểm tra chính xác từ khóa đại diện
+  if (geminiKey && geminiKey !== "__GEMINI_API_KEY__") {
     isReady = true;
     sendBtn.disabled = false;
     headerStatus.textContent = "Sẵn sàng";
+  } else if (
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1"
+  ) {
+    // Nếu chạy dưới máy tính (Local) chưa tiêm Key, vẫn mở khóa để test qua môi trường máy chủ proxy nếu có
+    isReady = true;
+    sendBtn.disabled = false;
+    headerStatus.textContent = "Chạy Local thử nghiệm";
+  } else {
+    headerStatus.textContent = "Chờ cấu hình bảo mật...";
   }
 }
 
 // ── Fast, Lightweight Prompt Builder ──
 function buildPrompt(userMessage) {
-  // 1. Movie formatting using strings calculated in config layer
   let productText = products
     .map((p) => {
       return (
@@ -71,19 +82,18 @@ function buildPrompt(userMessage) {
     })
     .join("\n\n");
 
-  // 2. Discounts formatting
   let discountSection = "";
   if (discounts && discounts.length > 0) {
     let discountText = discounts
       .map(
         (d) =>
-          `Ưu đãi: ${d.offer_name}\n- Điều kiện: ${d.conditions}\n - Giảm giá: ${d.discount}\n - Giảm giá tối đa: ${d.max_discount}\n - Trạng thái: ${d.status || "N/A"}\n - Từ ngày: ${d.valid_from || "N/A"}\n - Đến ngày: ${d.valid_until || "N/A"}\n`,
+          `Ưu đãi: ${d.offer_name}\n- Điều kiện: ${d.conditions}\n - Giảm giá: ${d.discount}\n - Giảm giá tối đa: ${d.max_discount}\n - Trạng thái: ${d.status || "N/A"}\n`,
       )
       .join("\n\n");
     discountSection = `\n\nDanh sách ưu đãi:\n${discountText}`;
   }
 
-  const systemCtx = `Bạn là trợ lý tư vấn bán vé xem phim thân thiện. Danh sách phim và vé:\n${productText}\n; cùng với danh sách ưu đãi: \n${discountSection}\n. Mỗi phần tử của danh sách là một phim hoặc vé xem phim với đầy đủ thông tin bạn cần. Trả lời bằng tiếng Việt, ngắn gọn, hiển thị giá bằng USD.`;
+  const systemCtx = `Bạn là trợ lý tư vấn bán vé xem phim thân thiện của rạp CineSeat. Danh sách phim:\n${productText}\n; danh sách ưu đãi: \n${discountSection}\n. Trả lời bằng tiếng Việt, ngắn gọn, hiển thị giá bằng USD.`;
 
   let historyText = "";
   for (const turn of chatHistory) {
@@ -92,25 +102,33 @@ function buildPrompt(userMessage) {
   }
 
   let prompt = systemCtx + "\n\n";
-
   if (historyText) {
-    prompt += "Lịch sử:\n";
-    prompt += historyText + "\n";
+    prompt += "Lịch sử cuộc trò chuyện:\n" + historyText + "\n";
   }
-
-  prompt += "Khách: " + userMessage + "\n";
-  prompt += "Trợ lý:";
-
+  prompt += "Khách: " + userMessage + "\nTrợ lý:";
   return prompt;
 }
 
 // ── Send to Gemini ──
 async function sendToGemini(userMessage) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${geminiKey}`;
+  let url = "";
+  let body = {};
 
-  const body = {
-    contents: [{ role: "user", parts: [{ text: buildPrompt(userMessage) }] }],
-  };
+  // SỬA LỖI 2: Phân tách định tuyến thông minh theo phương thức triển khai đám mây
+  if (
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1"
+  ) {
+    // Nếu chạy thử ở máy tính: Gửi qua Node.js Server Proxy của bạn ở cổng 3000
+    url = `http://localhost:3000/api/chat`;
+    body = { message: buildPrompt(userMessage) };
+  } else {
+    // Nếu đã đưa lên GitHub Pages: Gọi thẳng trực tiếp tới cấu trúc API của Google bằng Key đã được robot tự động tiêm vào
+    url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${geminiKey}`;
+    body = {
+      contents: [{ role: "user", parts: [{ text: buildPrompt(userMessage) }] }],
+    };
+  }
 
   const res = await fetch(url, {
     method: "POST",
@@ -120,28 +138,24 @@ async function sendToGemini(userMessage) {
 
   if (!res.ok) {
     const err = await res.json();
-    throw new Error(err.error?.message || `HTTP ${res.status}`);
+    throw new Error(
+      err.error?.message || err.error || `HTTP Lỗi: ${res.status}`,
+    );
   }
 
   const data = await res.json();
-  if (
-    data.candidates &&
-    data.candidates[0] &&
-    data.candidates[0].content &&
-    data.candidates[0].content.parts &&
-    data.candidates[0].content.parts[0] &&
-    data.candidates[0].content.parts[0].text
-  ) {
-    return data.candidates[0].content.parts[0].text;
-  } else {
-    return "Không có phản hồi.";
-  }
+
+  // Bóc tách linh hoạt cấu trúc trả về từ Server Proxy hoặc từ máy chủ Google trực tiếp
+  if (data.reply) return data.reply;
+  return (
+    data.candidates?.[0]?.content?.parts?.[0]?.text || "Không có phản hồi."
+  );
 }
 
 // ── Chat logic ──
 async function chat(userMessage) {
   if (!isReady) {
-    alert("Vui lòng nhập Gemini API key và chờ dữ liệu tải!");
+    alert("Hệ thống trợ lý đang khởi tạo dữ liệu, vui lòng đợi giây lát!");
     return;
   }
   if (!userMessage.trim()) return;
@@ -162,7 +176,7 @@ async function chat(userMessage) {
     appendMessage("bot", reply, true);
   } catch (e) {
     typingEl.remove();
-    appendMessage("bot", `❌ Lỗi: ${e.message}`);
+    appendMessage("bot", `❌ Lỗi kết nối AI: ${e.message}`);
   } finally {
     sendBtn.disabled = false;
     inputEl.focus();
