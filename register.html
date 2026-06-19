@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet" />
+
+    <link rel="stylesheet" href="css/general.css" />
+    <link rel="stylesheet" href="css/register.css" />
+    <link rel="stylesheet" href="css/chatbot.css" />
+    <link rel="icon" href="img/CineSeat-dark.png" type="image/png" />
+  </head>
+  <body>
+    <div class="up">
+      <nav class="navbar transparent">
+        <a class="navbar-logo" href="index.html">
+          <img
+            src="img/CineSeat-dark.png"
+            alt="CineSeat Logo"
+            height="70"
+            class="logo-img" />
+        </a>
+
+        <div class="nav-links-container" id="middle-nav">
+          <a class="nav-link active" href="#">Booking</a>
+          <a class="nav-link" href="#">Movies</a>
+          <a class="nav-link" href="#">News & Sales</a>
+          <a class="nav-link" href="#">Promotions</a>
+          <a class="nav-link" href="#">My Ticket</a>
+          <a class="nav-link" href="#">About Us</a>
+        </div>
+
+        <div class="nav-right nav-links-container" id="right-nav">
+          <div id="search-div">
+            <div class="search">
+              <i id="searchImg" class="fa-solid fa-magnifying-glass"></i>
+              <input
+                type="text"
+                class="search-input"
+                placeholder="Search for movies, news, and more..." />
+              <div id="search-results"></div>
+            </div>
+            <a class="nav-link" href="#" id="search-button">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </a>
+          </div>
+
+          <a class="nav-link" href="#"
+            ><i class="fa-solid fa-circle-user"></i
+          ></a>
+        </div>
+      </nav>
+      <div class="container flex transparent">
+        <div class="form">
+          <h1>Register</h1>
+          <form id="registerForm">
+            <input
+              name="username"
+              id="username"
+              class="inputField"
+              placeholder="Username"
+              type="text"
+              minlength="6"
+              maxlength="18"
+              required />
+            <input
+              name="email"
+              id="email"
+              class="inputField"
+              placeholder="Email"
+              type="email"
+              required />
+            <input
+              name="password"
+              id="password"
+              class="inputField"
+              placeholder="Password"
+              type="password"
+              minlength="8"
+              maxlength="20"
+              required />
+            <input
+              name="verifyPassword"
+              class="inputField"
+              id="verifyPassword"
+              placeholder="Verify password"
+              type="password"
+              minlength="8"
+              maxlength="20"
+              required />
+            <div id="termsBox">
+              <input type="checkbox" id="terms" name="terms" required />
+              <label for="terms" id="termsLabel">
+                I accept the terms of the agreement</label
+              >
+            </div>
+            <button id="submitBtn" type="submit">Register</button>
+          </form>
+
+          <h4 id="register-link">
+            Already have an account?<span
+              ><a href="login.html"> Sign in</a></span
+            >
+          </h4>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="./js/register.js"></script>
+    <script type="module" src="./js/general.js"></script>
+  </body>
+</html>

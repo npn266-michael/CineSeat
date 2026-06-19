@@ -1,0 +1,212 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+body {
+  background-color: none;
+}
+.container {
+  background-color: transparent;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  /* padding: 82px 0px 82px 0px; */
+}
+.up {
+  background-image: url("../img/cinema.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+h1 {
+  margin-bottom: 30px;
+}
+.form {
+  background-color: rgba(0, 0, 0, 0.576);
+  height: auto;
+  width: 80%;
+  padding: 72px;
+  max-width: 500px;
+  flex: 1;
+  border-radius: 8px;
+}
+.form h1 {
+  color: white;
+  margin-bottom: 32px;
+  font-size: 50px;
+}
+.form #username,
+.form #password,
+.form #verifyPassword,
+.form #email {
+  border: none;
+  margin-bottom: 20px;
+  font-size: 18px;
+  border-radius: 4px;
+  padding: 16px;
+  width: 100%;
+  color: white;
+  transition: 0.2s ease;
+}
+.form #username::placeholder,
+.form #password::placeholder,
+.form #verifyPassword::placeholder,
+.form #email::placeholder {
+  color: rgb(141, 141, 141);
+}
+.form #username:focus,
+.form #password:focus,
+.form #verifyPassword:focus,
+.form #email:focus {
+  outline: none;
+}
+.form #terms {
+  transform: scale(1.5);
+  cursor: inherit;
+}
+.form #termsBox {
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+.form #termsLabel {
+  color: white;
+  font-size: 18px;
+  cursor: inherit;
+}
+.form #extra {
+  display: grid;
+  margin-bottom: 40px;
+  grid-template-columns: repeat(2, 1fr);
+}
+.form #forgotPass {
+  display: flex;
+  justify-content: right;
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+.form #submitBtn {
+  display: inline;
+  background-color: var(--primary-gold);
+  border: none;
+  color: white;
+  font-size: 18px;
+  border-radius: 8px;
+  padding: 16px;
+  width: 100%;
+  font-weight: bold;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.form #submitBtn:hover {
+  background-color: var(--buttons-warm-amber);
+}
+.form #register-link {
+  color: white;
+  font-weight: normal;
+  font-size: 18px;
+}
+.form #register-link a {
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+  transition: 0.2s;
+}
+.form #register-link a:hover {
+  color: var(--primary-gold);
+}
+.register-link {
+  text-decoration: none;
+  color: var(--red-btn-hover);
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .form {
+    width: 100%;
+    max-width: 500px;
+    padding: 32px 24px;
+  }
+
+  .form h1 {
+    font-size: 40px;
+    margin-bottom: 24px;
+  }
+
+  .form #username,
+  .form #password,
+  .form #verifyPassword,
+  .form #email {
+    font-size: 16px;
+    padding: 14px;
+  }
+
+  .form #submitBtn {
+    font-size: 16px;
+    padding: 14px;
+  }
+
+  .form #termsLabel,
+  .form #register-link {
+    font-size: 16px;
+  }
+}
+@media (max-width: 480px) {
+  .up {
+    padding: 12px;
+  }
+
+  .container {
+    padding: 0;
+  }
+
+  .form {
+    width: 100%;
+    padding: 24px 16px;
+  }
+
+  .form h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+
+  .form #username,
+  .form #password,
+  .form #verifyPassword,
+  .form #email {
+    font-size: 16px;
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+
+  .form #termsLabel {
+    font-size: 15px;
+  }
+
+  .form #submitBtn {
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  .form #register-link {
+    font-size: 15px;
+    line-height: 1.4;
+  }
+
+  .form #terms {
+    transform: scale(1.2);
+  }
+}

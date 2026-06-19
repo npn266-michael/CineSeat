@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Searching...</title>
+    <link
+      rel="stylesheet"
+      href="//use.fontawesome.com/releases/v7.2.0/css/all.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="css/general.css" />
+    <!-- <link rel="stylesheet" href="css/.css" /> -->
+    <link rel="stylesheet" href="css/chatbot.css" />
+    <link rel="icon" href="img/CineSeat-dark.png" type="image/png" />
+  </head>
+  <body>
+    <div class="loading">
+      <img src="img/loading.gif" />
+      <p>Loading...</p>
+    </div>
+    <nav class="navbar">
+      <a class="navbar-logo" href="index.html"
+        ><img
+          src="img/CineSeat-dark.png"
+          alt="CineSeat Logo"
+          height="70"
+          class="logo-img"
+      /></a>
+      <button
+        class="burger-menu"
+        id="burger-btn"
+        aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="nav-menu-wrapper" id="nav-menu">
+        <div class="nav-links-container" id="middle-nav">
+          <a class="nav-link" href="index.html">Home</a>
+          <a class="nav-link" href="movies.html">Movies</a>
+          <!-- <a class="nav-link" href="#">News & Sales</a> -->
+          <a class="nav-link" href="discounts.html">Promotions</a>
+          <a class="nav-link" href="about.html">About Us</a>
+        </div>
+        <div class="nav-right nav-links-container" id="right-nav">
+          <div id="search-div">
+            <form
+              action="search.html"
+              class="search"
+              method="GET"
+              id="search-form-desktop">
+              <i id="searchImg" class="fa-solid fa-magnifying-glass"></i>
+              <input
+                type="text"
+                class="search-input"
+                name="query"
+                placeholder="Search for movies, news, and more..."
+                required />
+            </form>
+            <a class="nav-link" href="#" id="search-button"
+              ><i class="fa-solid fa-magnifying-glass"></i
+            ></a>
+          </div>
+          <div class="profile-div">
+            <a class="nav-link" href="#" id="profile-button"
+              ><i class="fa-solid fa-circle-user"></i
+            ></a>
+            <div class="login-dropdown" id="login-box">
+              <a class="nav-link" href="login.html" id="login">Login</a>
+              <a class="nav-link" href="register.html" id="register"
+                >Register</a
+              >
+            </div>
+            <div class="login-dropdown" id="account-box">
+              <a class="nav-link" href="profile.html" id="myAccount"
+                >My Profile</a
+              >
+              <a class="nav-link" href="myTickets.html" id="myTicket"
+                >My Tickets</a
+              >
+              <a class="nav-link" href="#" id="logout">Sign Out</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu">
+      <a class="mobile-link" href="index.html">Home</a>
+      <a class="mobile-link" href="#">Booking</a>
+      <a class="mobile-link" href="movies.html">Movies</a>
+      <a class="mobile-link" href="discounts.html">Promotions</a>
+      <a class="mobile-link" href="about.html">About Us</a>
+      <form
+        action="search.html"
+        class="searchMobile"
+        method="GET"
+        id="search-form-mobile">
+        <i id="searchImg" class="fa-solid fa-magnifying-glass"></i>
+        <input
+          type="text"
+          class="search-input"
+          name="query"
+          placeholder="Search for movies, news, and more..."
+          required />
+      </form>
+
+      <hr style="width: 100%" />
+      <div class="mobile-cont" id="mobile-guest-menu">
+        <a class="mobile-link" href="login.html">Login</a>
+        <a class="mobile-link" href="register.html">Register</a>
+      </div>
+
+      <!-- LOGGED IN -->
+      <div class="mobile-cont" id="mobile-account-menu">
+        <a class="mobile-link" href="profile.html">My Profile</a>
+        <a class="mobile-link" href="myTickets.html">My Tickets</a>
+        <a class="mobile-link" href="#" id="mobile-logout">Sign Out</a>
+      </div>
+    </div>
+    <main class="features" style="min-height: calc(100vh - 100px - 117px)">
+      <div class="feature">
+        <h3><i class="fa-solid fa-magnifying-glass"></i>Search Results</h3>
+        <div class="card-grid"></div>
+      </div>
+    </main>
+    <button id="chat-toggle" title="Chat với trợ lý">
+      💬
+      <span id="chat-badge"></span>
+    </button>
+
+    <!-- ── Chat panel ── -->
+    <div id="chat-panel">
+      <!-- Header -->
+      <div id="chat-header">
+        <div class="avatar">🛍️</div>
+        <div class="info">
+          <h3>Trợ lý sản phẩm</h3>
+          <p>
+            <span id="status-dot"></span
+            ><span id="header-status">Đang tải...</span>
+          </p>
+        </div>
+        <button id="close-btn" title="Đóng">✕</button>
+      </div>
+
+      <!-- Messages -->
+      <div id="messages"></div>
+
+      <!-- Suggestion chips -->
+      <div id="suggestions">
+        <button class="suggestion-chip" onclick="askSuggestion(this)">
+          Danh mục?
+        </button>
+        <button class="suggestion-chip" onclick="askSuggestion(this)">
+          Vé xem phim rẻ nhất?
+        </button>
+        <button class="suggestion-chip" onclick="askSuggestion(this)">
+          Phim được đánh giá cao?
+        </button>
+      </div>
+
+      <!-- Input -->
+      <div id="input-area">
+        <textarea
+          id="user-input"
+          rows="1"
+          placeholder="Hỏi về sản phẩm..."></textarea>
+        <button id="send-btn" disabled>➤</button>
+      </div>
+    </div>
+    <footer>
+      <p>&copy; 2026 CineSeat. All rights reserved.</p>
+    </footer>
+    <script type="module" src="js/search.js"></script>
+    <script type="module" src="js/chatbot.js"></script>
+    <script type="module" src="js/general.js"></script>
+  </body>
+</html>

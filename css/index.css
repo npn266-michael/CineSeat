@@ -1,0 +1,174 @@
+body {
+  font-family: "Inter", sans-serif;
+}
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: calc(100vh - 100px);
+  background-image: url("../img/hero1.jpg");
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+  box-shadow: var(--box-shadow);
+}
+.hero-content {
+  position: relative;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  height: 100%;
+  padding: 0px 48px;
+}
+/* .hero-switcher {
+  padding: 0px;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin-top: 20px;
+}
+.hero-switcher-item {
+  padding: 0px;
+  height: 9px;
+  width: 9px;
+  border-radius: 50%;
+  border: 1px solid var(--buttons-warm-amber);
+  margin: 0px 5px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.hero-switcher-item:before {
+  content: "";
+}
+.hero-switcher-item.active {
+  transform: scale(1.5);
+  background-color: var(--buttons-warm-amber);
+} */
+.hero-text {
+  max-width: 500px;
+  margin-left: 60px;
+  width: 100%;
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+.hero-text h1 {
+  font-size: 80px;
+  margin-bottom: 20px;
+  font-family: "Bebas Neue", sans-serif;
+}
+.hero-text p {
+  width: 100%;
+  font-size: 24px;
+  word-wrap: break-word;
+  color: var(--text-soft-white);
+}
+.hero-form-container {
+  position: absolute;
+  left: 25%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  background-color: var(--surface-dark-charcoal);
+  border-radius: 8px;
+  z-index: 1;
+  color: var(--text-soft-white);
+  box-shadow: var(--box-shadow);
+}
+.hero-form-container h2 {
+  font-family: "Inter", sans-serif;
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: var(--text-soft-white);
+}
+.hero-form-container form {
+  gap: 15px;
+  display: flex;
+  flex-direction: column;
+}
+.hero-form-container form > * {
+  font-family: "Inter", sans-serif;
+  padding: 14px;
+  border: none;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+footer {
+  box-shadow: var(--box-shadow);
+  background:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgb(0, 0, 0)),
+    url("../img/cinema2.jpg") center/cover;
+  padding: 0px 0px 48px 0px;
+}
+@media (max-width: 900px) {
+  .hero {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 32px 20px;
+  }
+
+  .hero-form-container {
+    position: static;
+    transform: none;
+    max-width: 100%;
+    width: 100%;
+    order: 2;
+  }
+
+  .hero-text {
+    margin-left: 0;
+    max-width: 100%;
+    text-align: center;
+    grid-column: auto;
+    order: 1;
+  }
+
+  .hero-text h1 {
+    font-size: 56px;
+  }
+
+  .hero-text p {
+    font-size: 20px;
+  }
+}
+@media (max-width: 600px) {
+  .hero-content {
+    padding: 24px 16px;
+  }
+
+  .hero-text h1 {
+    font-size: 42px;
+    line-height: 0.95;
+  }
+
+  .hero-text p {
+    font-size: 18px;
+  }
+
+  .hero-form-container {
+    padding: 16px;
+  }
+
+  .hero-form-container h2 {
+    font-size: 24px;
+  }
+
+  .hero-form-container form > * {
+    padding: 12px;
+    font-size: 14px;
+  }
+}

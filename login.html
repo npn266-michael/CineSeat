@@ -1,0 +1,70 @@
+<!-- Login Page -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet" />
+
+    <link rel="stylesheet" href="css/general.css" />
+    <link rel="stylesheet" href="css/login.css" />
+    <link rel="stylesheet" href="css/chatbot.css" />
+    <link rel="icon" href="img/CineSeat-dark.png" type="image/png" />
+  </head>
+  <body>
+    <div class="container">
+      <a class="navbar-logo" href="index.html">
+        <img
+          src="img/CineSeat-dark.png"
+          alt="CineSeat Logo"
+          height="70"
+          class="logo-img" />
+      </a>
+      <div class="form">
+        <h1>Login</h1>
+        <form id="loginForm">
+          <input
+            name="username"
+            id="username"
+            placeholder="Username"
+            type="text"
+            minlength="6"
+            maxlength="18"
+            required />
+
+          <input
+            name="password"
+            id="password"
+            placeholder="Password"
+            type="password"
+            required />
+          <input type="checkbox" id="passwordHide" />Show Password
+          <button id="submitBtn" type="submit">Login</button>
+          <div id="extra">
+            <div id="rememberBox">
+              <input type="checkbox" id="remember" />
+              <label for="remember" id="rememberLabel"> Remember me</label>
+            </div>
+            <div id="forgotPass">
+              <a>Forgot password?</a>
+            </div>
+          </div>
+        </form>
+        <h4 id="register-link">
+          New to CineSeat?<span><a href="./register.html"> Register</a></span>
+        </h4>
+      </div>
+    </div>
+    <script type="module" src="./js/general.js"></script>
+    <script type="module" src="./js/login.js"></script>
+  </body>
+</html>

@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CineSeat - Book your Experience | Cinema Ticket Booking</title>
+    <link
+      rel="stylesheet"
+      href="//use.fontawesome.com/releases/v7.2.0/css/all.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="css/general.css" />
+    <link rel="stylesheet" href="css/details.css" />
+    <link rel="stylesheet" href="css/chatbot.css" />
+    <link rel="icon" href="img/CineSeat-dark.png" type="image/png" />
+  </head>
+  <body>
+    <div class="loading">
+      <img src="img/loading.gif" />
+      <p>Loading...</p>
+    </div>
+    <nav class="navbar">
+      <a class="navbar-logo" href="index.html"
+        ><img
+          src="img/CineSeat-dark.png"
+          alt="CineSeat Logo"
+          height="70"
+          class="logo-img"
+      /></a>
+      <button
+        class="burger-menu"
+        id="burger-btn"
+        aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="nav-menu-wrapper" id="nav-menu">
+        <div class="nav-links-container" id="middle-nav">
+          <a class="nav-link" href="index.html">Home</a>
+
+          <a class="nav-link" href="movies.html">Movies</a>
+          <!-- <a class="nav-link" href="#">News & Sales</a> -->
+          <a class="nav-link" href="discounts.html">Promotions</a>
+          <a class="nav-link" href="about.html">About Us</a>
+        </div>
+        <div class="nav-right nav-links-container" id="right-nav">
+          <div id="search-div">
+            <form
+              action="search.html"
+              class="search"
+              method="GET"
+              id="search-form-desktop">
+              <i id="searchImg" class="fa-solid fa-magnifying-glass"></i>
+              <input
+                type="text"
+                class="search-input"
+                name="query"
+                placeholder="Search for movies, news, and more..."
+                required />
+            </form>
+            <a class="nav-link" href="#" id="search-button"
+              ><i class="fa-solid fa-magnifying-glass"></i
+            ></a>
+          </div>
+          <div class="profile-div">
+            <a class="nav-link" href="#" id="profile-button"
+              ><i class="fa-solid fa-circle-user"></i
+            ></a>
+            <div class="login-dropdown" id="login-box">
+              <a class="nav-link" href="login.html" id="login">Login</a>
+              <a class="nav-link" href="register.html" id="register"
+                >Register</a
+              >
+            </div>
+            <div class="login-dropdown" id="account-box">
+              <a class="nav-link" href="profile.html" id="myAccount"
+                >My Profile</a
+              >
+              <a class="nav-link" href="myTickets.html" id="myTicket"
+                >My Tickets</a
+              >
+              <a class="nav-link" href="#" id="logout">Sign Out</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu">
+      <a class="mobile-link" href="index.html">Home</a>
+      <a class="mobile-link" href="#">Booking</a>
+      <a class="mobile-link" href="movies.html">Movies</a>
+      <a class="mobile-link" href="discounts.html">Promotions</a>
+      <a class="mobile-link" href="about.html">About Us</a>
+      <form
+        action="search.html"
+        class="searchMobile"
+        method="GET"
+        id="search-form-mobile">
+        <i id="searchImg" class="fa-solid fa-magnifying-glass"></i>
+        <input
+          type="text"
+          class="search-input"
+          name="query"
+          placeholder="Search for movies, news, and more..."
+          required />
+      </form>
+
+      <hr style="width: 100%" />
+      <div class="mobile-cont" id="mobile-guest-menu">
+        <a class="mobile-link" href="login.html">Login</a>
+        <a class="mobile-link" href="register.html">Register</a>
+      </div>
+
+      <!-- LOGGED IN -->
+      <div class="mobile-cont" id="mobile-account-menu">
+        <a class="mobile-link" href="profile.html">My Profile</a>
+        <a class="mobile-link" href="myTickets.html">My Tickets</a>
+        <a class="mobile-link" href="#" id="mobile-logout">Sign Out</a>
+      </div>
+    </div>
+    <div class="info-section" id="info-section">
+      <div class="poster">
+        <img
+          id="poster"
+          src="https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/i/n/interstellar-poster-up.jpg" />
+      </div>
+      <div class="info-container" id="info-container">
+        <span
+          style="
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+          "
+          ><h1 id="title">Loading...</h1>
+          <div class="tag tag-orange" id="tagCont">PG-13</div></span
+        >
+        <span id="rating"><i class="fa-solid fa-star"></i> 9.2</span>
+        <div class="tag-container" id="genreCont">
+          <div class="tag">Sci-Fi</div>
+          <div class="tag">Drama</div>
+        </div>
+        <p id="release-date">Release date: <span id="releaseDateTxt"></span></p>
+        <p id="duration">Duration: <span id="runtimeTxt"></span> minutes</p>
+        <p id="director">Director: <span id="directorTxt"></span></p>
+        <p id="actors">Casts: <span id="actorsTxt"></span></p>
+        <p id="lang">Language: <span id="languageTxt"></span></p>
+
+        <p id="description"></p>
+        <div class="tag-container" id="styleCont"></div>
+        <a href="#bookingSection">
+          <button class="cta-button cta-hero" id="bookBtn">Book Now</button>
+        </a>
+        <a href="#" target="_blank" id="trailerLink">
+          <button class="cta-button cta-hero cta-hero-border" id="trailerBtn">
+            Watch Trailer
+          </button>
+        </a>
+      </div>
+    </div>
+    <section class="features">
+      <div class="feature" id="bookingSection">
+        <h3><i class="fa-solid fa-calendar"></i> Available Showtimes</h3>
+        <p class="feature-para">Check out the showtimes for this movie!</p>
+        <div class="booking">
+          <div class="show-times-container">
+            <div class="show-times-top">
+              <div class="show-times-dates">
+                <button
+                  class="show-time tag cta-button cta-hero cta-hero-border"
+                  id="2026-06-20">
+                  Friday<br />20/6
+                </button>
+                <button
+                  class="show-time tag cta-button cta-hero cta-hero-border"
+                  id="2026-06-21">
+                  Saturday<br />21/6
+                </button>
+                <button
+                  class="show-time tag cta-button cta-hero cta-hero-border"
+                  id="2026-06-22">
+                  Sunday <br />22/6
+                </button>
+                <button
+                  class="show-time tag cta-button cta-hero cta-hero-border"
+                  id="2026-06-23">
+                  Monday<br />23/2
+                </button>
+                <button
+                  class="show-time tag cta-button cta-hero cta-hero-border"
+                  id="2026-06-24">
+                  Tuesday<br />24/2
+                </button>
+              </div>
+              <select class="show-times-select" id="city-select">
+                <option value="all">All Cities</option>
+                <option value="Ho Chi Minh City">Ho Chi Minh City</option>
+                <option value="Ha Noi">Ha Noi</option>
+              </select>
+              <select
+                class="show-times-select tag-container"
+                id="theatre-select">
+                <option value="all">All Cinemas</option>
+                <option value="CGV Vincom Đồng Khởi">
+                  CGV Vincom Đồng Khởi
+                </option>
+                <option value="CGV Landmark 81">CGV Landmark 81</option>
+                <option value="CGV Aeon Hà Đông">CGV Aeon Hà Đông</option>
+              </select>
+            </div>
+          </div>
+          <hr class="hr-golden" />
+          <div class="booking-list">
+            <div class="booking-section">
+              <h4 class="cinema-title">CGV Landmark 81</h4>
+              <div class="booking-item">
+                <h4 class="movie-style">IMAX</h4>
+                <div class="booking-btn-container">
+                  <button
+                    class="cta-button cta-hero cta-hero-border cta-booking"
+                    id="10:00">
+                    10:00 AM
+                  </button>
+                  <button
+                    class="cta-button cta-hero cta-hero-border cta-booking"
+                    id="4:30">
+                    4:30 PM
+                  </button>
+                </div>
+              </div>
+
+              <div class="booking-item">
+                <h4 class="movie-style">ScreenX</h4>
+                <div class="booking-btn-container">
+                  <button
+                    class="cta-button cta-hero cta-hero-border cta-booking"
+                    id="9:15">
+                    9:15 AM
+                  </button>
+                  <button
+                    class="cta-button cta-hero cta-hero-border cta-booking"
+                    id="20:00">
+                    8:00 PM
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr />
+        </div>
+      </div>
+    </section>
+    <div class="popup" id="confirmTicket">
+      <h4>ORDER SUMMARY</h4>
+      <div class="summary">
+        <p id="movieSum">Movie:</p>
+        <p id="dateSum">Date:</p>
+        <p id="timeSum">Time:</p>
+        <br />
+        <p id="ticketTotal">Ticket Total:</p>
+        <p id="fee">Service Fee: $2</p>
+        <p id="total">TOTAL:</p>
+      </div>
+      <div class="summaryBtn-container">
+        <button class="cancelButton cta-button cta-hero cta-hero-border">
+          Cancel
+        </button>
+        <button class="finalSubmit cta-button cta-hero">
+          Continue to Payment
+        </button>
+      </div>
+    </div>
+    <button id="chat-toggle" title="Chat với trợ lý">
+      💬
+      <span id="chat-badge"></span>
+    </button>
+
+    <!-- ── Chat panel ── -->
+    <div id="chat-panel">
+      <!-- Header -->
+      <div id="chat-header">
+        <div class="avatar">🛍️</div>
+        <div class="info">
+          <h3>Trợ lý sản phẩm</h3>
+          <p>
+            <span id="status-dot"></span
+            ><span id="header-status">Đang tải...</span>
+          </p>
+        </div>
+        <button id="close-btn" title="Đóng">✕</button>
+      </div>
+
+      <!-- Messages -->
+      <div id="messages"></div>
+
+      <!-- Suggestion chips -->
+      <div id="suggestions">
+        <button class="suggestion-chip" onclick="askSuggestion(this)">
+          Danh mục?
+        </button>
+        <button class="suggestion-chip" onclick="askSuggestion(this)">
+          Vé xem phim rẻ nhất?
+        </button>
+        <button class="suggestion-chip" onclick="askSuggestion(this)">
+          Phim được đánh giá cao?
+        </button>
+      </div>
+
+      <!-- Input -->
+      <div id="input-area">
+        <textarea
+          id="user-input"
+          rows="1"
+          placeholder="Hỏi về sản phẩm..."></textarea>
+        <button id="send-btn" disabled>➤</button>
+      </div>
+    </div>
+    <!-- <div class="popup"></div> -->
+
+    <footer>
+      <p>&copy; 2026 CineSeat. All rights reserved.</p>
+    </footer>
+    <script type="module" src="js/general.js"></script>
+    <script type="module" src="js/chatbot.js"></script>
+    <script type="module" src="js/details.js"></script>
+  </body>
+</html>

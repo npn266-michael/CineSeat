@@ -1,0 +1,72 @@
+.ticket-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+  height: 100%;
+}
+.ticket {
+  position: relative;
+  border-radius: 8px;
+  border: 2px solid var(--primary-gold);
+  padding: 18px 24px 18px 24px;
+  width: fit-content;
+}
+.ticket-name {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 42px;
+  margin: 0px 0px 24px 0px;
+  width: fit-content;
+}
+.ticket-info-container {
+  display: flex;
+  flex-direction: row;
+  gap: 80px;
+}
+.infobox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.infobox h4 {
+  font-size: 32px;
+  font-family: "Bebas Neue", sans-serif;
+}
+.del-btn {
+  padding: 0px;
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  background-color: transparent;
+  border: none;
+  width: fit-content;
+  color: var(--primary-gold);
+  cursor: pointer;
+}
+.del-btn:hover .del-i {
+  color: var(--buttons-warm-amber);
+  transform: scale(1.2);
+}
+.del-i {
+  box-shadow: none;
+  font-size: 24px !important;
+  margin: 0px !important;
+  transform: scale(1);
+  transition: 0.2s ease;
+}
+.features {
+  min-height: calc(100vh - 100px - 117px);
+}
+@media (max-width: 768px) {
+  .ticket {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .ticket-info-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
