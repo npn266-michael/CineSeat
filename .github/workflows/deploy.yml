@@ -24,7 +24,12 @@ jobs:
       - name: Checkout mã nguồn
         uses: actions/checkout@v4
 
-      - name: Tiêm API Key bảo mật vào file mã nguồn
+      # BƯỚC THẦN KỲ: Robot tự động tạo file .env trên GitHub Pages trước khi xuất bản
+      - name: Khởi tạo file .env bảo mật trên đám mây
+        run: |
+          echo "GEMINI_API_KEY=${{ secrets.GEMINI_KEY }}" > .env
+
+      - name: Tiêm API Key vào file chatbot.js
         run: |
           sed -i 's/__GEMINI_API_KEY__/${{ secrets.GEMINI_KEY }}/g' js/chatbot.js
 

@@ -213,4 +213,3 @@ inputEl.addEventListener("keydown", (e) => {
 
 // ── Init ──
 loadProducts();
-//test deploy
