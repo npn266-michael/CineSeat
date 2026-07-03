@@ -31,20 +31,55 @@ closeBtn.addEventListener("click", () => {
 });
 
 // ── Simplified Data Loader ──
+// ── Simplified Data Loader (Bản nâng cấp chống kẹt) ──
 async function loadProducts() {
   try {
+    console.log("Đang tải dữ liệu rạp phim...");
     const appData = await fetchData();
 
-    products = appData.products || [];
-    discounts = appData.discounts || [];
+    products = appData?.products || [];
+    discounts = appData?.discounts || [];
 
-    console.log("Loaded fully deciphered products:", products);
-    checkReady();
+    console.log("Loaded products:", products);
   } catch (e) {
-    console.error("Lỗi nạp dữ liệu rạp phim:", e);
+    // Nếu lỗi fetch dữ liệu, ghi nhận lỗi nhưng KHÔNG ĐƯỢC làm sập luồng xử lý chat
+    console.error("Cảnh báo: Không thể nạp dữ liệu phim từ lớp config:", e);
     products = [];
     discounts = [];
+  } finally {
+    // Bắt buộc phải chạy hàm kiểm tra Ready dù việc nạp phim thành công hay thất bại
     checkReady();
+  }
+}
+
+function checkReady() {
+  console.log("Trạng thái geminiKey hiện tại:", geminiKey);
+
+  // Kiểm tra môi trường chạy
+  const isLocal =
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1";
+
+  // Nâng cấp điều kiện: Chỉ cần Key tồn tại và không bị trống rỗng
+  if (geminiKey && geminiKey !== "" && geminiKey !== "__GEMINI_API_KEY__") {
+    isReady = true;
+    sendBtn.disabled = false;
+    headerStatus.textContent = "Sẵn sàng";
+    console.log("🤖 Chatbot đã sẵn sàng với Key thực tế.");
+  } else if (isLocal) {
+    // Nếu chạy ở máy tính (Local) chưa tiêm Key, vẫn mở để test qua server.js (localhost:3000)
+    isReady = true;
+    sendBtn.disabled = false;
+    headerStatus.textContent = "Chạy Local thử nghiệm";
+  } else {
+    // Biện pháp khẩn cấp: Nếu lên GitHub Pages rồi mà việc tiêm key bị lỗi,
+    // Ép hệ thống mở khóa nút để người dùng nhập tin nhắn, lỗi sẽ hiển thị trực tiếp khi bấm gửi thay vì đóng băng.
+    isReady = true;
+    sendBtn.disabled = false;
+    headerStatus.textContent = "Sẵn sàng (Chế độ dự phòng)";
+    console.warn(
+      "Cảnh báo: Phát hiện chữ thô __GEMINI_API_KEY__, mở khóa chế độ dự phòng.",
+    );
   }
 }
 
