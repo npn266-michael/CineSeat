@@ -50,7 +50,7 @@ async function loadProducts() {
 
 function checkReady() {
   // SỬA LỖI 1: Đảm bảo điều kiện kiểm tra chính xác từ khóa đại diện
-  if (geminiKey && geminiKey === "__GEMINI_API_KEY__") {
+  if (geminiKey && geminiKey !== "__GEMINI_API_KEY__") {
     isReady = true;
     sendBtn.disabled = false;
     headerStatus.textContent = "Sẵn sàng";
