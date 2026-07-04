@@ -3,7 +3,7 @@ name: Deploy Protected CineSeat to GitHub Pages
 on:
   push:
     branches:
-      - main # Đổi thành master nếu nhánh chính của bạn tên là master
+      - main # Hoặc master tùy theo tên nhánh của bạn
 
 permissions:
   contents: read
@@ -12,7 +12,7 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: true # Tự động dọn dẹp các lượt chạy cũ để tránh trùng lặp gói dữ liệu
+  cancel-in-progress: true
 
 jobs:
   deploy:
@@ -24,19 +24,26 @@ jobs:
       - name: Checkout mã nguồn
         uses: actions/checkout@v4
 
-      # Tiêm trực tiếp API Key vào file JS, không cần qua bước tạo file .env tạm để tránh tạo thêm artifact thừa
-      - name: Tiêm API Key bảo mật vào file chatbot.js
+      # ROBOT LẤY SECRETS ĐỂ ĐÈ LÊN FILE CHATBOT.JS TRƯỚC KHI XUẤT BẢN
+      - name: Tiêm API Key bảo mật từ GitHub Secrets vào file chatbot.js
+        env:
+          REAL_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          sed -i 's/__GEMINI_API_KEY__/${{ secrets.GEMINI_KEY }}/g' js/chatbot.js
+          node -e "
+            const fs = require('fs');
+            let content = fs.readFileSync('js/chatbot.js', 'utf8');
+            content = content.replace('__GEMINI_API_KEY__', process.env.REAL_KEY);
+            fs.writeFileSync('js/chatbot.js', content, 'utf8');
+          "
 
       - name: Cấu hình môi trường GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Tải toàn bộ thư mục lên hệ thống lưu trữ
+      - name: Tải code lên hệ thống
         uses: actions/upload-pages-artifact@v3
         with:
           path: "."
 
-      - name: Xuất bản lên GitHub Pages thực tế
+      - name: Xuất bản lên GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

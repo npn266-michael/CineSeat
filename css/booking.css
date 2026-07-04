@@ -1,0 +1,210 @@
+.features {
+  padding-top: 48px;
+}
+/* Core Layout Grid System */
+.screen-container {
+  perspective: 500px;
+  text-align: center;
+  margin: 20px auto 50px auto;
+  width: 100%;
+  max-width: 600px;
+}
+
+/* The physical curved theater screen */
+.cinema-screen {
+  height: 12px;
+  width: 90%;
+  margin: 0 auto;
+  background-color: var(--text-soft-white);
+  border-radius: 50% / 100% 100% 0 0; /* Creates a clean top curve arch */
+
+  /* Gold glow mimicking the light reflecting off a premium projector screen */
+  box-shadow:
+    0px 2px 15px var(--primary-gold),
+    0px 10px 30px rgba(212, 175, 55, 0.3);
+
+  /* Tilts the screen slightly forward toward the audience */
+  transform: rotateX(-15deg);
+}
+
+/* Screen label text positioned cleanly underneath the glowing arc */
+.screen-label {
+  font-family:
+    "Bebas Neue", sans-serif; /* Utilizing your imported heading font */
+  font-size: 13px;
+  letter-spacing: 4px;
+  color: var(--lighter-surface-dark-charcoal);
+  margin-top: 15px;
+  font-weight: bold;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+}
+#seat-grid-layout {
+  display: grid;
+  /* 18 structural coordinate columns */
+  grid-template-columns:
+    40px /* Left Label */
+    repeat(5, minmax(35px, 45px)) /* Left Wing */
+    30px /* Walkway Corridor 1 (Aisle - completely empty) */
+    repeat(4, minmax(35px, 45px)) /* Center */
+    30px /* Walkway Corridor 2 (Aisle - completely empty) */
+    repeat(5, minmax(35px, 45px)) /* Right Wing */
+    40px; /* Right Label */
+
+  gap: 12px 0px;
+  justify-content: center;
+  align-content: center;
+  margin: 40px auto;
+  padding: 25px;
+  background: var(--surface-dark-charcoal);
+  border-radius: 12px;
+  width: fit-content;
+  box-shadow: var(--box-shadow);
+  grid-auto-flow: row;
+}
+
+/* Row Bounds Guards */
+.left-marker {
+  grid-column-start: 1;
+  justify-self: center;
+  align-self: center;
+  font-weight: bold;
+  color: var(--lighter-surface-dark-charcoal);
+}
+
+.right-marker {
+  grid-column-start: 18;
+  justify-self: center;
+  align-self: center;
+  font-weight: bold;
+  color: var(--lighter-surface-dark-charcoal);
+}
+
+/* General Seat Styling Setup */
+.seat-node {
+  height: 40px;
+  margin: 0 3px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 6px;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.seat-type-sub {
+  font-size: 8px;
+  opacity: 0.5;
+}
+.seat-legend {
+  font-size: 12px;
+  color: var(--text-soft-white);
+  margin-bottom: 20px;
+  text-align: center;
+}
+/* Interactive Behavior States */
+.status-available {
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    background-color 0.2s,
+    border-color 0.2s;
+}
+
+.status-available:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 8px var(--primary-gold);
+  border-color: var(--primary-gold) !important;
+}
+
+.status-booked {
+  background-color: #1a1a1f !important;
+  border: none !important;
+  color: #3b3b44 !important;
+  cursor: not-allowed;
+  opacity: 0.3;
+  text-decoration: line-through;
+}
+
+.status-selected {
+  background-color: var(--buttons-warm-amber) !important;
+  border-color: var(--buttons-warm-amber) !important;
+  color: var(--background-rick-black) !important;
+  box-shadow: 0 0 12px var(--buttons-warm-amber);
+}
+
+/* ── MAP THEME SEAT COLORS BY HIERARCHY ── */
+
+/* Standard: A - C */
+.seat-standard.status-available {
+  background-color: var(--lighter-surface-dark-charcoal);
+  border: 1px solid #4e4e59;
+  color: var(--text-soft-white);
+}
+
+/* Premium VIP: D - G */
+.seat-vip.status-available {
+  background-color: #5c1d24;
+  border: 1px solid #9c2734;
+  color: var(--text-soft-white);
+}
+
+/* Wheelchair: H (Normal size) */
+.seat-wheelchair.status-available {
+  background-color: #164e63;
+  border: 1px solid #06b6d4;
+  color: var(--text-soft-white);
+}
+
+/* Companion: H (Normal size, flanking wheelchair nodes) */
+.seat-companion.status-available {
+  background-color: #065f46;
+  border: 1px solid #10b981;
+  color: var(--text-soft-white);
+}
+
+/* Double Sofa: I (Intentionally takes up a wider track footprint) */
+.seat-sofa.status-available {
+  background-color: #7c5e10;
+  border: 1px solid var(--primary-gold);
+  color: var(--text-soft-white);
+}
+
+/* ── ACTION INTERACTIVE FORM FINALLY SUBMIT PANEL ── */
+.booking-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  /* border-top: 1px solid var(--lighter-surface-dark-charcoal); */
+}
+
+#checkout-continue-btn {
+  background-color: var(--primary-gold);
+  color: var(--background-rick-black);
+  border: none;
+  padding: 14px 32px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#checkout-continue-btn:hover:not(:disabled) {
+  background-color: var(--buttons-warm-amber);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245, 196, 81, 0.4);
+}
+
+#checkout-continue-btn:disabled {
+  background-color: #24242b;
+  color: #545460;
+  cursor: not-allowed;
+  opacity: 0.5;
+  transform: none;
+  box-shadow: none;
+}

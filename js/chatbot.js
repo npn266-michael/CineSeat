@@ -123,27 +123,23 @@ function buildPrompt(userMessage) {
   prompt += "Khách: " + userMessage + "\nTrợ lý:";
   return prompt;
 }
-
+// if (
+//   window.location.hostname === "localhost" ||
+//   window.location.hostname === "127.0.0.1"
+// ) {
+//   geminiKey = "";
+// }
 // ── Send to Gemini ──
 async function sendToGemini(userMessage) {
   let url = "";
   let body = {};
 
   // SỬA LỖI 2: Phân tách định tuyến thông minh theo phương thức triển khai đám mây
-  if (
-    window.location.hostname === "localhost" ||
-    window.location.hostname === "127.0.0.1"
-  ) {
-    // Nếu chạy thử ở máy tính: Gửi qua Node.js Server Proxy của bạn ở cổng 3000
-    url = `http://localhost:3000/api/chat`;
-    body = { message: buildPrompt(userMessage) };
-  } else {
-    // Nếu đã đưa lên GitHub Pages: Gọi thẳng trực tiếp tới cấu trúc API của Google bằng Key đã được robot tự động tiêm vào
-    url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${geminiKey}`;
-    body = {
-      contents: [{ role: "user", parts: [{ text: buildPrompt(userMessage) }] }],
-    };
-  }
+  // Nếu đã đưa lên GitHub Pages: Gọi thẳng trực tiếp tới cấu trúc API của Google bằng Key đã được robot tự động tiêm vào
+  url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${geminiKey}`;
+  body = {
+    contents: [{ role: "user", parts: [{ text: buildPrompt(userMessage) }] }],
+  };
 
   const res = await fetch(url, {
     method: "POST",
