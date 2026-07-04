@@ -31,9 +31,19 @@ jobs:
         run: |
           node -e "
             const fs = require('fs');
-            let content = fs.readFileSync('js/chatbot.js', 'utf8');
-            content = content.replace('__GEMINI_API_KEY__', process.env.REAL_KEY);
-            fs.writeFileSync('js/chatbot.js', content, 'utf8');
+            const path = 'js/chatbot.js';
+            let content = fs.readFileSync(path, 'utf8');
+            
+            // Debug: Kiểm tra xem file có chứa từ khóa không
+            if (!content.includes('__GEMINI_API_KEY__')) {
+                console.error('LỖI: Không tìm thấy __GEMINI_API_KEY__ trong file!');
+                process.exit(1); // Dừng workflow nếu không tìm thấy
+            }
+            
+            const cleanKey = process.env.REAL_KEY.trim();
+            content = content.replace('__GEMINI_API_KEY__', cleanKey);
+            fs.writeFileSync(path, content, 'utf8');
+            console.log('Tiêm Key thành công!');
           "
 
       - name: Cấu hình môi trường GitHub Pages
