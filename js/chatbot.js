@@ -51,7 +51,6 @@ async function loadProducts() {
     checkReady();
   }
 }
-
 function checkReady() {
   console.log("Trạng thái geminiKey hiện tại:", geminiKey);
 
@@ -80,25 +79,6 @@ function checkReady() {
     console.warn(
       "Cảnh báo: Phát hiện chữ thô __GEMINI_API_KEY__, mở khóa chế độ dự phòng.",
     );
-  }
-}
-
-function checkReady() {
-  // SỬA LỖI 1: Đảm bảo điều kiện kiểm tra chính xác từ khóa đại diện
-  if (geminiKey && geminiKey !== "__GEMINI_API_KEY__") {
-    isReady = true;
-    sendBtn.disabled = false;
-    headerStatus.textContent = "Sẵn sàng";
-  } else if (
-    window.location.hostname === "localhost" ||
-    window.location.hostname === "127.0.0.1"
-  ) {
-    // Nếu chạy dưới máy tính (Local) chưa tiêm Key, vẫn mở khóa để test qua môi trường máy chủ proxy nếu có
-    isReady = true;
-    sendBtn.disabled = false;
-    headerStatus.textContent = "Chạy Local thử nghiệm";
-  } else {
-    headerStatus.textContent = "Chờ cấu hình bảo mật...";
   }
 }
 
